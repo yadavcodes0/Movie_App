@@ -6,22 +6,25 @@ class MyAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      title: Text(
-        title,
-        style: const TextStyle(
-          color: Colors.yellow,
+    return Hero(
+      tag: 'appBar',
+      child: AppBar(
+        title: Text(
+          title,
+          style: const TextStyle(
+            color: Colors.yellow,
+          ),
         ),
+        centerTitle: true,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.yellow),
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
-      centerTitle: true,
-      leading: IconButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        icon: const Icon(Icons.arrow_back_ios, color: Colors.yellow),
-      ),
-      backgroundColor: Colors.transparent,
-      elevation: 0,
     );
   }
 }

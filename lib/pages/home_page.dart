@@ -4,14 +4,9 @@ import 'package:pikashow_clone/Widgets/bottom_app_bar.dart';
 import '../Widgets/center_icons.dart';
 import '../Widgets/movie_slider.dart';
 
-class Homepage extends StatefulWidget {
+class Homepage extends StatelessWidget {
   const Homepage({Key? key}) : super(key: key);
 
-  @override
-  State<Homepage> createState() => _HomepageState();
-}
-
-class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -20,22 +15,7 @@ class _HomepageState extends State<Homepage> {
       color: Colors.transparent,
       child: Stack(
         children: [
-          Container(
-            decoration: const BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black26,
-                  blurRadius: 20,
-                  offset: Offset(0, 5),
-                ),
-                BoxShadow(
-                  color: Colors.transparent,
-                  offset: Offset(0, -5),
-                ),
-              ],
-            ),
-            child: MovieSlider(height: height),
-          ),
+          MovieSlider(height: height),
           Positioned(
             bottom: 0,
             child: Container(
@@ -53,11 +33,11 @@ class _HomepageState extends State<Homepage> {
                   end: Alignment.center,
                 ),
               ),
-              child: Column(
+              child: const Column(
                 children: [
-                  const Spacer(),
+                  Spacer(),
                   Column(
-                    children: const [
+                    children: [
                       CenterIcons(),
                       Text(
                         'Version 82',
@@ -69,7 +49,7 @@ class _HomepageState extends State<Homepage> {
                       ),
                     ],
                   ),
-                  const Bottom(),
+                  Bottom(),
                 ],
               ),
             ),

@@ -49,7 +49,9 @@ class _MovieSliderState extends State<MovieSlider> {
   @override
   Widget build(BuildContext context) {
     return trendingMovies.isEmpty
-        ? const Center(child: CircularProgressIndicator())
+        ? const Center(
+            child: CircularProgressIndicator(color: Colors.yellow),
+          )
         : CarouselSlider.builder(
             options: CarouselOptions(
               height: widget.height * 0.75,
@@ -84,19 +86,20 @@ class _MovieSliderState extends State<MovieSlider> {
                                       trendingMovies[index]['release_date'],
                                     ).year.toString()
                                   : '',
+                          language: trendingMovies[index]['original_language']
+                              .toString()
+                              .toUpperCase(),
                         ),
                       ),
                     ),
                   );
                 },
                 child: Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      fit: BoxFit.fitHeight,
-                      image: NetworkImage(
-                        'https://image.tmdb.org/t/p/w300${trendingMovies[index]['poster_path']}',
-                      ),
-                    ),
+                  color: Colors.black,
+                  child: Image.network(
+                    'https://image.tmdb.org/t/p/w300${trendingMovies[index]['poster_path']}',
+                    fit: BoxFit.fill,
+                    width: double.infinity,
                   ),
                 ),
               );

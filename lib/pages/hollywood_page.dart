@@ -71,6 +71,9 @@ class _HollyWoodPageState extends State<HollyWoodPage> {
                       hollywoodMovies[index]['release_date'],
                     ).year.toString()
                   : '',
+              language: hollywoodMovies[index]['original_language']
+                  .toString()
+                  .toUpperCase(),
             ),
           );
         },

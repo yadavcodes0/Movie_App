@@ -19,9 +19,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Pikashow Clone',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          fontFamily: 'Poppins',
+          useMaterial3: true,
         ),
         debugShowCheckedModeBanner: false,
         home: const Homepage(),

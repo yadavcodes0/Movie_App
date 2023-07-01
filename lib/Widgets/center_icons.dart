@@ -3,8 +3,21 @@ import 'package:flutter/material.dart';
 import '../pages/Test_Page.dart';
 import '../pages/favourite_movies.dart';
 
-class CenterIcons extends StatelessWidget {
+class CenterIcons extends StatefulWidget {
   const CenterIcons({Key? key}) : super(key: key);
+
+  @override
+  State<CenterIcons> createState() => _CenterIconsState();
+}
+
+class _CenterIconsState extends State<CenterIcons> {
+  final String telegramUrl = 'https://telegram.org/';
+  final String youtubeUrl = 'https://www.youtube.com/';
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,39 +32,15 @@ class CenterIcons extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const TestPage(),
-                    ),
-                  );
-                },
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const TestPage(),
-                      ),
-                    );
-                  },
-                  child: const Image(
-                    image: AssetImage('assets/icons/telegram.png'),
-                    width: 52,
-                    height: 52,
-                  ),
+                onTap: () {},
+                child: const Image(
+                  image: AssetImage('assets/icons/telegram.png'),
+                  width: 52,
+                  height: 52,
                 ),
               ),
               GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const TestPage(),
-                    ),
-                  );
-                },
+                onTap: () {},
                 child: const Image(
                   image: AssetImage('assets/icons/youtube.png'),
                   width: 52,

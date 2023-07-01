@@ -78,6 +78,7 @@ class _SeriesPageState extends State<SeriesPage> {
                       tvShows[index]['release_date'],
                     ).year.toString()
                   : '',
+              language: tvShows[index]['original_language'].toString(),
             ),
           );
         },

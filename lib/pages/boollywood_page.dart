@@ -69,6 +69,7 @@ class _BoollyWoodPageState extends State<BoollyWoodPage> {
                       bollywoodMovies[index]['release_date'],
                     ).year.toString()
                   : '',
+              language: bollywoodMovies[index]['original_language'].toString(),
             ),
           );
         },

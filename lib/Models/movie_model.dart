@@ -5,6 +5,7 @@ class Movie {
   final String description;
   final String rating;
   final dynamic yearOfRelease;
+  final String language;
 
   Movie({
     required this.id,
@@ -13,15 +14,9 @@ class Movie {
     required this.description,
     required this.rating,
     required this.yearOfRelease,
+    required this.language,
   });
 
-  String get yearString {
-    if (yearOfRelease is int) {
-      return yearOfRelease.toString();
-    } else {
-      return yearOfRelease;
-    }
-  }
 
   static fromJson(movieData) {}
 }
