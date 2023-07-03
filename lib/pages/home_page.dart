@@ -15,7 +15,7 @@ class Homepage extends StatelessWidget {
       color: Colors.transparent,
       child: Stack(
         children: [
-          MovieSlider(height: height),
+          const MovieSlider(),
           Positioned(
             bottom: 0,
             child: Container(

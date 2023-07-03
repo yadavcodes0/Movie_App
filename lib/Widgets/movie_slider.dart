@@ -10,12 +10,7 @@ import '../pages/movie_page.dart';
 import '../utils/data.dart';
 
 class MovieSlider extends StatefulWidget {
-  const MovieSlider({
-    Key? key,
-    required this.height,
-  }) : super(key: key);
-
-  final double height;
+  const MovieSlider({Key? key}) : super(key: key);
 
   @override
   State<MovieSlider> createState() => _MovieSliderState();
@@ -48,18 +43,18 @@ class _MovieSliderState extends State<MovieSlider> {
 
   @override
   Widget build(BuildContext context) {
+    final h = MediaQuery.of(context).size.height;
     return trendingMovies.isEmpty
         ? const Center(
             child: CircularProgressIndicator(color: Colors.yellow),
           )
         : CarouselSlider.builder(
             options: CarouselOptions(
-              height: widget.height * 0.75,
-              aspectRatio: 16 / 9,
-              viewportFraction: 1.0,
+              height: h * 0.7,
+              viewportFraction: 1,
               reverse: false,
               autoPlay: true,
-              autoPlayInterval: const Duration(seconds: 4),
+              autoPlayInterval: const Duration(seconds: 6),
               autoPlayAnimationDuration: const Duration(milliseconds: 400),
             ),
             itemCount: trendingMovies.length,
@@ -74,7 +69,7 @@ class _MovieSliderState extends State<MovieSlider> {
                           id: trendingMovies[index]['id'],
                           title: trendingMovies[index]['title'] ?? '',
                           imageUrl:
-                              'https://image.tmdb.org/t/p/w300${trendingMovies[index]['poster_path']}',
+                              'https://image.tmdb.org/t/p/w780${trendingMovies[index]['poster_path']}',
                           description: trendingMovies[index]['overview'],
                           rating:
                               (trendingMovies[index]['vote_average'] as num?)
@@ -97,9 +92,8 @@ class _MovieSliderState extends State<MovieSlider> {
                 child: Container(
                   color: Colors.black,
                   child: Image.network(
-                    'https://image.tmdb.org/t/p/w300${trendingMovies[index]['poster_path']}',
-                    fit: BoxFit.fill,
-                    width: double.infinity,
+                    'https://image.tmdb.org/t/p/w780${trendingMovies[index]['poster_path']}',
+                    fit: BoxFit.cover,
                   ),
                 ),
               );

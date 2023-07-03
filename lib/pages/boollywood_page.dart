@@ -7,7 +7,7 @@ import '../Models/movie_model.dart';
 import '../utils/data.dart';
 
 class BoollyWoodPage extends StatefulWidget {
-  const BoollyWoodPage({super.key});
+  const BoollyWoodPage({Key? key}) : super(key: key);
 
   @override
   State<BoollyWoodPage> createState() => _BoollyWoodPageState();
@@ -23,18 +23,22 @@ class _BoollyWoodPageState extends State<BoollyWoodPage> {
     super.initState();
   }
 
-  loadMovies() async {
-    TMDB tmdbWithCustomLogs = TMDB(
-      ApiKeys(apikey, readaccesstoken),
-      logConfig: const ConfigLogger(
-        showLogs: true,
-        showErrorLogs: true,
-      ),
-    );
-    Map results = await tmdbWithCustomLogs.v3.discover.getMovies(region: 'IN');
-    setState(() {
-      bollywoodMovies = results['results'] ?? [];
-    });
+  Future<void> loadMovies() async {
+    try {
+      final tmdbWithCustomLogs = TMDB(
+        ApiKeys(apikey, readaccesstoken),
+        logConfig: const ConfigLogger(
+          showLogs: true,
+          showErrorLogs: true,
+        ),
+      );
+      final results = await tmdbWithCustomLogs.v3.discover.getMovies(region: 'IN');
+      setState(() {
+        bollywoodMovies = results['results'] ?? [];
+      });
+    } catch (e) {
+      print('Error loading movies: $e');
+    }
   }
 
   @override
@@ -54,24 +58,20 @@ class _BoollyWoodPageState extends State<BoollyWoodPage> {
         ),
         itemCount: bollywoodMovies.length,
         itemBuilder: (context, index) {
-          return Poster(
-            movie: Movie(
-              id: bollywoodMovies[index]['id'],
-              title: bollywoodMovies[index]['title'] ?? '',
-              imageUrl:
-                  'https://image.tmdb.org/t/p/w300${bollywoodMovies[index]['poster_path']}',
-              description: bollywoodMovies[index]['overview'],
-              rating: (bollywoodMovies[index]['vote_average'] as num?)
-                      ?.toStringAsFixed(1) ??
-                  '0.0',
-              yearOfRelease: bollywoodMovies[index]['release_date'] != null
-                  ? DateTime.parse(
-                      bollywoodMovies[index]['release_date'],
-                    ).year.toString()
-                  : '',
-              language: bollywoodMovies[index]['original_language'].toString(),
-            ),
+          final movie = Movie(
+            id: bollywoodMovies[index]['id'],
+            title: bollywoodMovies[index]['title'] ?? '',
+            imageUrl:
+                'https://image.tmdb.org/t/p/w780${bollywoodMovies[index]['poster_path']}',
+            description: bollywoodMovies[index]['overview'],
+            rating: (bollywoodMovies[index]['vote_average'] as num?)?.toStringAsFixed(1) ?? '0.0',
+            yearOfRelease: bollywoodMovies[index]['release_date'] != null
+                ? DateTime.parse(bollywoodMovies[index]['release_date']).year.toString()
+                : '',
+            language: bollywoodMovies[index]['original_language'].toString(),
           );
+
+          return Poster(movie: movie);
         },
       ),
     );

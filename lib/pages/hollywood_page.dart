@@ -7,7 +7,7 @@ import '../Widgets/poster_image.dart';
 import '../utils/data.dart';
 
 class HollyWoodPage extends StatefulWidget {
-  const HollyWoodPage({super.key});
+  const HollyWoodPage({Key? key}) : super(key: key);
 
   @override
   State<HollyWoodPage> createState() => _HollyWoodPageState();
@@ -15,7 +15,7 @@ class HollyWoodPage extends StatefulWidget {
 
 class _HollyWoodPageState extends State<HollyWoodPage> {
   final MyAppBar _appBar = const MyAppBar(title: 'HollyWood');
-  List hollywoodMovies = [];
+  List<dynamic> hollywoodMovies = [];
 
   @override
   void initState() {
@@ -23,20 +23,22 @@ class _HollyWoodPageState extends State<HollyWoodPage> {
     super.initState();
   }
 
-  loadMovies() async {
-    TMDB tmdbWithCustomLogs = TMDB(
-      ApiKeys(apikey, readaccesstoken),
-      logConfig: const ConfigLogger(
-        showLogs: true,
-        showErrorLogs: true,
-      ),
-    );
-    Map resultsH = await tmdbWithCustomLogs.v3.discover.getMovies(
-      page: 5,
-    );
-    setState(() {
-      hollywoodMovies = resultsH['results'];
-    });
+  Future<void> loadMovies() async {
+    try {
+      final tmdbWithCustomLogs = TMDB(
+        ApiKeys(apikey, readaccesstoken),
+        logConfig: const ConfigLogger(
+          showLogs: true,
+          showErrorLogs: true,
+        ),
+      );
+      final results = await tmdbWithCustomLogs.v3.discover.getMovies(page: 5);
+      setState(() {
+        hollywoodMovies = results['results'] ?? [];
+      });
+    } catch (e) {
+      print('Error loading movies: $e');
+    }
   }
 
   @override
@@ -56,26 +58,20 @@ class _HollyWoodPageState extends State<HollyWoodPage> {
         ),
         itemCount: hollywoodMovies.length,
         itemBuilder: (context, index) {
-          return Poster(
-            movie: Movie(
-              id: hollywoodMovies[index]['id'],
-              title: hollywoodMovies[index]['title'] ?? '',
-              imageUrl:
-                  'https://image.tmdb.org/t/p/w300${hollywoodMovies[index]['poster_path']}',
-              description: hollywoodMovies[index]['overview'],
-              rating: (hollywoodMovies[index]['vote_average'] as num?)
-                      ?.toStringAsFixed(1) ??
-                  '0.0',
-              yearOfRelease: hollywoodMovies[index]['release_date'] != null
-                  ? DateTime.parse(
-                      hollywoodMovies[index]['release_date'],
-                    ).year.toString()
-                  : '',
-              language: hollywoodMovies[index]['original_language']
-                  .toString()
-                  .toUpperCase(),
-            ),
+          final movie = Movie(
+            id: hollywoodMovies[index]['id'],
+            title: hollywoodMovies[index]['title'] ?? '',
+            imageUrl:
+                'https://image.tmdb.org/t/p/w780${hollywoodMovies[index]['poster_path']}',
+            description: hollywoodMovies[index]['overview'],
+            rating: (hollywoodMovies[index]['vote_average'] as num?)?.toStringAsFixed(1) ?? '0.0',
+            yearOfRelease: hollywoodMovies[index]['release_date'] != null
+                ? DateTime.parse(hollywoodMovies[index]['release_date']).year.toString()
+                : '',
+            language: hollywoodMovies[index]['original_language'].toString().toUpperCase(),
           );
+
+          return Poster(movie: movie);
         },
       ),
     );

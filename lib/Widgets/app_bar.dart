@@ -20,7 +20,11 @@ class MyAppBar extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.yellow),
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: Colors.yellow,
+            size: 18,
+          ),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
