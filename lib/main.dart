@@ -3,7 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:pikashow_clone/pages/home_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    const MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -18,9 +20,7 @@ class MyApp extends StatelessWidget {
       ),
       child: MaterialApp(
         title: 'Pikashow Clone',
-        theme: ThemeData(
-          useMaterial3: true,
-        ),
+        theme: ThemeData(useMaterial3: true),
         debugShowCheckedModeBanner: false,
         home: const Homepage(),
       ),

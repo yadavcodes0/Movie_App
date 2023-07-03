@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_expandable_text/flutter_expandable_text.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../Models/movie_model.dart';
@@ -76,22 +77,38 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              color: Colors.white,
-              size: 25,
+          Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.black.withOpacity(0.3),
+            ),
+            child: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              splashRadius: 20.0,
+              splashColor: Colors.yellow,
+              icon: const Icon(
+                Icons.arrow_back,
+                color: Colors.yellow,
+                size: 20,
+              ),
             ),
           ),
-          IconButton(
-            onPressed: onFavoritePressed,
-            icon: Icon(
-              isFavorite ? Icons.favorite : Icons.favorite_border,
-              color: Colors.white,
-              size: 30,
+          Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.black.withOpacity(0.3),
+            ),
+            child: IconButton(
+              onPressed: onFavoritePressed,
+              splashRadius: 20.0,
+              splashColor: Colors.yellow,
+              icon: Icon(
+                isFavorite ? Icons.favorite : Icons.favorite_border,
+                color: Colors.yellow,
+                size: 20,
+              ),
             ),
           ),
         ],
@@ -122,6 +139,7 @@ List<Widget> _buildBackground(context, movie, height) {
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
+            stops: [0.2, 0.6],
           ),
         ),
       ),
@@ -173,13 +191,16 @@ Positioned _buildMovieInformation(BuildContext context, Movie movie) {
             onRatingUpdate: (rating) {},
           ),
           const SizedBox(height: 20),
-          Text(
+          ExpandableText(
             movie.description,
-            maxLines: 8,
+            trim: 6,
             style: Theme.of(context).textTheme.bodySmall!.copyWith(
                   height: 1.75,
                   color: Colors.white,
                 ),
+            linkTextStyle: const TextStyle(
+              color: Colors.yellow,
+            ),
           ),
         ],
       ),

@@ -31,8 +31,10 @@ dependencies:
   animations: ^2.0.7
   carousel_slider: ^4.2.1
   cupertino_icons: ^1.0.2
+  device_preview: ^1.1.0
   flutter:
     sdk: flutter
+  flutter_expandable_text: ^1.0.0
   flutter_rating_bar: ^4.0.1
   google_fonts: ^5.1.0
   path_provider: ^2.0.15
