@@ -50,7 +50,7 @@ class _MovieSliderState extends State<MovieSlider> {
           )
         : CarouselSlider.builder(
             options: CarouselOptions(
-              height: h * 0.7,
+              height: h * 0.8,
               aspectRatio: 16 / 9,
               viewportFraction: 1,
               reverse: false,
@@ -70,7 +70,7 @@ class _MovieSliderState extends State<MovieSlider> {
                           id: trendingMovies[index]['id'],
                           title: trendingMovies[index]['title'] ?? '',
                           imageUrl:
-                              'https://image.tmdb.org/t/p/w780${trendingMovies[index]['poster_path']}',
+                              'https://image.tmdb.org/t/p/original${trendingMovies[index]['poster_path']}',
                           description: trendingMovies[index]['overview'],
                           rating:
                               (trendingMovies[index]['vote_average'] as num?)
@@ -93,9 +93,8 @@ class _MovieSliderState extends State<MovieSlider> {
                 child: Container(
                   color: Colors.black,
                   child: Image.network(
-                    'https://image.tmdb.org/t/p/w780${trendingMovies[index]['poster_path']}',
-                    fit: BoxFit.fill,
-                    width: double.infinity,
+                    'https://image.tmdb.org/t/p/original${trendingMovies[index]['poster_path']}',
+                    fit: BoxFit.cover,
                   ),
                 ),
               );
