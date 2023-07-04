@@ -30,15 +30,18 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Stack(
-        children: [
-          ..._buildBackground(context, (widget.movie), height),
-          _buildMovieInformation(context, widget.movie),
-          _topBar(context),
-          _watchButton(),
-        ],
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          return Stack(
+            children: [
+              ..._buildBackground(context, (widget.movie), constraints),
+              _buildMovieInformation(context, widget.movie),
+              _topBar(context),
+              _watchButton(),
+            ],
+          );
+        },
       ),
     );
   }
@@ -55,12 +58,12 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
             backgroundColor: Colors.yellow,
             fixedSize: const Size(double.infinity, 50),
           ),
-          onPressed: () {},
+          onPressed: onFavoritePressed,
           child: const Text(
             'Watch Now',
             style: TextStyle(
               fontSize: 18,
-              color: Colors.white,
+              color: Colors.black,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -115,95 +118,99 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
       ),
     );
   }
-}
 
-List<Widget> _buildBackground(context, movie, height) {
-  return [
-    Container(
-      height: double.infinity,
-      color: const Color(0xFF1c1c27),
-    ),
-    Image.network(
-      movie.imageUrl,
-      width: double.infinity,
-      height: height * 0.6,
-      fit: BoxFit.fill,
-    ),
-    const Positioned.fill(
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Colors.transparent,
-              Color(0xFF1c1c27),
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            stops: [0.2, 0.6],
+  List<Widget> _buildBackground(
+    BuildContext context,
+    Movie movie,
+    BoxConstraints constraints,
+  ) {
+    final height = constraints.maxHeight;
+    return [
+      Container(
+        height: double.infinity,
+        color: const Color(0xFF1c1c27),
+      ),
+      Image.network(
+        movie.imageUrl,
+        width: double.infinity,
+        height: height * 0.6,
+        fit: BoxFit.fill,
+      ),
+      const Positioned.fill(
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.transparent,
+                Color(0xFF1c1c27),
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              stops: [0.1, 0.7],
+            ),
           ),
         ),
       ),
-    ),
-  ];
-}
+    ];
+  }
 
-Positioned _buildMovieInformation(BuildContext context, Movie movie) {
-  return Positioned(
-    bottom: 80,
-    width: MediaQuery.of(context).size.width,
-    child: Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        children: [
-          Text(
-            movie.title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
+  Positioned _buildMovieInformation(BuildContext context, Movie movie) {
+    return Positioned(
+      bottom: 80,
+      left: 20,
+      right: 20,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              movie.title,
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
             ),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            '${movie.yearOfRelease} | ${movie.language.toUpperCase()} | ${double.parse(movie.rating) / 2}',
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 14,
+            Text(
+              '${movie.yearOfRelease} | ${movie.language.toUpperCase()} | ${double.parse(movie.rating) / 2}',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+              ),
             ),
-          ),
-          const SizedBox(height: 10),
-          RatingBar.builder(
-            initialRating: double.parse(movie.rating) / 2,
-            minRating: 1,
-            direction: Axis.horizontal,
-            allowHalfRating: true,
-            ignoreGestures: true,
-            itemCount: 5,
-            itemSize: 20,
-            unratedColor: Colors.white,
-            itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-            itemBuilder: (context, index) {
-              return const Icon(
-                Icons.star,
+            const SizedBox(height: 8),
+            RatingBar.builder(
+              initialRating: double.parse(movie.rating) / 2,
+              minRating: 1,
+              direction: Axis.horizontal,
+              allowHalfRating: true,
+              ignoreGestures: true,
+              itemCount: 5,
+              itemSize: 20,
+              unratedColor: Colors.white.withOpacity(0.5),
+              itemPadding: const EdgeInsets.all(2.0),
+              itemBuilder: (context, _) {
+                return const Icon(
+                  Icons.star,
+                  color: Colors.yellow,
+                );
+              },
+              onRatingUpdate: (rating) {},
+            ),
+            const SizedBox(height: 20),
+            ExpandableText(
+              movie.description,
+              trim: 5,
+              style: const TextStyle(
+                height: 1.75,
+                color: Colors.white,
+              ),
+              linkTextStyle: const TextStyle(
                 color: Colors.yellow,
-              );
-            },
-            onRatingUpdate: (rating) {},
-          ),
-          const SizedBox(height: 20),
-          ExpandableText(
-            movie.description,
-            trim: 6,
-            style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  height: 1.75,
-                  color: Colors.white,
-                ),
-            linkTextStyle: const TextStyle(
-              color: Colors.yellow,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ),
-  );
+    );
+  }
 }

@@ -22,52 +22,55 @@ class _FavouriteMoviesState extends State<FavouriteMovies> {
         child: _appBar,
       ),
       body: ListView.builder(
+        itemCount: favoriteMovies.length,
         itemBuilder: (context, index) {
-          return Container(
-            margin: const EdgeInsets.symmetric(vertical: 10.0),
-            padding: const EdgeInsets.all(10.0),
-            decoration: const BoxDecoration(
-              color: Colors.white10,
-              borderRadius: BorderRadius.all(
-                Radius.circular(10.0),
-              ),
-            ),
-            child: ListTile(
-              title: Text(
-                favoriteMovies[index].title,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey,
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 14.0),
+            child: Container(
+              margin: const EdgeInsets.symmetric(vertical: 10.0),
+              padding: const EdgeInsets.all(10.0),
+              decoration: const BoxDecoration(
+                color: Colors.white10,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(20.0),
                 ),
               ),
-              subtitle: Text(
-                favoriteMovies[index].yearOfRelease,
-                style: const TextStyle(color: Colors.grey),
-              ),
-              leading: Image.network(
-                favoriteMovies[index].imageUrl,
-              ),
-              trailing: IconButton(
-                onPressed: () {
-                  favoriteMovies.removeAt(index);
-                  setState(() {});
-                },
-                icon: const Icon(Icons.delete_outline, color: Colors.red),
-              ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => MovieDetailsPage(
-                      movie: favoriteMovies[index],
-                    ),
+              child: ListTile(
+                title: Text(
+                  favoriteMovies[index].title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey,
                   ),
-                );
-              },
+                ),
+                subtitle: Text(
+                  favoriteMovies[index].yearOfRelease,
+                  style: const TextStyle(color: Colors.grey),
+                ),
+                leading: Image.network(
+                  favoriteMovies[index].imageUrl,
+                ),
+                trailing: IconButton(
+                  onPressed: () {
+                    favoriteMovies.removeAt(index);
+                    setState(() {});
+                  },
+                  icon: const Icon(Icons.delete_outline, color: Colors.yellow),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MovieDetailsPage(
+                        movie: favoriteMovies[index],
+                      ),
+                    ),
+                  );
+                },
+              ),
             ),
           );
         },
-        itemCount: favoriteMovies.length,
       ),
     );
   }

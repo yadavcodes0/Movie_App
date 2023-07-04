@@ -30,7 +30,7 @@ class Poster extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: NetworkImage(
-                    'https://image.tmdb.org/t/p/w780${movie.imageUrl}',
+                    'https://image.tmdb.org/t/p/w500${movie.imageUrl}',
                   ),
                   fit: BoxFit.fill,
                 ),
