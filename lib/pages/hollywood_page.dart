@@ -62,7 +62,7 @@ class _HollyWoodPageState extends State<HollyWoodPage> {
             id: hollywoodMovies[index]['id'],
             title: hollywoodMovies[index]['title'] ?? '',
             imageUrl:
-                'https://image.tmdb.org/t/p/w500${hollywoodMovies[index]['poster_path']}',
+                'https://image.tmdb.org/t/p/w780${hollywoodMovies[index]['poster_path']}',
             description: hollywoodMovies[index]['overview'],
             rating: (hollywoodMovies[index]['vote_average'] as num?)?.toStringAsFixed(1) ?? '0.0',
             yearOfRelease: hollywoodMovies[index]['release_date'] != null
