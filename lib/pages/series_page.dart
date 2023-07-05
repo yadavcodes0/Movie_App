@@ -63,7 +63,7 @@ class _SeriesPageState extends State<SeriesPage> {
             id: tvShows[index]['id'],
             title: tvShows[index]['title'] ?? '',
             imageUrl:
-                'https://image.tmdb.org/t/p/original${tvShows[index]['poster_path']}',
+                'https://image.tmdb.org/t/p/w500${tvShows[index]['poster_path']}',
             description: tvShows[index]['overview'],
             rating:
                 (tvShows[index]['vote_average'] as num?)?.toStringAsFixed(1) ??

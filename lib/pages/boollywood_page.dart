@@ -62,7 +62,7 @@ class _BoollyWoodPageState extends State<BoollyWoodPage> {
             id: bollywoodMovies[index]['id'],
             title: bollywoodMovies[index]['title'] ?? '',
             imageUrl:
-                'https://image.tmdb.org/t/p/original${bollywoodMovies[index]['poster_path']}',
+                'https://image.tmdb.org/t/p/w500${bollywoodMovies[index]['poster_path']}',
             description: bollywoodMovies[index]['overview'],
             rating: (bollywoodMovies[index]['vote_average'] as num?)?.toStringAsFixed(1) ?? '0.0',
             yearOfRelease: bollywoodMovies[index]['release_date'] != null
